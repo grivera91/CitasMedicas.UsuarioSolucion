@@ -8,11 +8,11 @@ namespace CitasMedicas.UserRegistrationService.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuariosController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public UsuariosController(ApplicationDbContext context)
+        public UsuarioController(ApplicationDbContext context)
         {
             _context = context;
         }
