@@ -1,9 +1,8 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using CitasMedicas.UsuarioApi.Data;
+using CitasMedicas.UsuarioRolApi.Data;
 using Microsoft.EntityFrameworkCore;
-using CitasMedicas.UsuarioApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,14 +40,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])) // Configurar la clave de firma en appsettings.json
         };
     });
-
-builder.Services.AddHttpClient("PacienteApi", client =>
-{
-    client.BaseAddress = new Uri("https://localhost:7074/api/Paciente");
-});
-
-builder.Services.AddScoped<PacienteService>();
-builder.Services.AddScoped<CorrelativoService>();
 
 // Add services to the container.
 builder.Services.AddControllers();

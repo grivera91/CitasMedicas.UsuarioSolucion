@@ -11,11 +11,10 @@
         public int Genero { get; set; }
         public int NumeroTelefonico { get; set; }
         public string Direccion { get; set; }
-        public string UsuarioAcceso { get; set; }        
-        public string Contrasenia { get; set; }
-        public DateTime? ContraseniaVencimiento { get; set; }
-        public int RolUsuario { get; set; }
+        public string? UsuarioAcceso { get; set; }        
+        public string Contrasenia { get; set; }        
+        public int? RolUsuario { get; set; }
         public bool EsAdmin { get; set; }
-        public string? UsuarioCreacion { get; set; }        
+        public string UsuarioCreacion { get; set; }        
     }
 }
