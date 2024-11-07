@@ -26,6 +26,7 @@ builder.Services.AddCors(options =>
         });
 });
 
+/*
 // Configurar Autenticación con JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -42,12 +43,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddHttpClient("PacienteApi", client =>
-{
-    client.BaseAddress = new Uri("https://localhost:7074/api/Paciente");
-});
+*/
 
-builder.Services.AddScoped<PacienteService>();
 builder.Services.AddScoped<CorrelativoService>();
 
 // Add services to the container.
