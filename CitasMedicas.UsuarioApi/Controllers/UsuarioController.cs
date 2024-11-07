@@ -111,7 +111,7 @@ namespace CitasMedicas.UserRegistrationService.Api.Controllers
             }            
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPatch("{id}")]
         public async Task<IActionResult> EditarUsuario(int id, UsuarioUpdateDto usuarioUpdateDto)
         {
@@ -201,7 +201,7 @@ namespace CitasMedicas.UserRegistrationService.Api.Controllers
             }            
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UsuarioResponseDto>>> ListarUsuarios(
             [FromQuery] int? rol,
@@ -259,7 +259,7 @@ namespace CitasMedicas.UserRegistrationService.Api.Controllers
             return Ok(usuariosResponse);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<UsuarioResponseDto>> ObtenerUsuario(int id)
         {
@@ -292,7 +292,7 @@ namespace CitasMedicas.UserRegistrationService.Api.Controllers
             return Ok(usuarioResponseDto);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPatch("cambiar-estado/{id}")]
         public async Task<IActionResult> CambiarEstadoUsuario(int id)
         {
@@ -325,7 +325,7 @@ namespace CitasMedicas.UserRegistrationService.Api.Controllers
             }           
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("dni/{dni}")]        
         public async Task<ActionResult<UsuarioResponseDto>> BuscarUsuarioDni(int dni)
         {
@@ -355,7 +355,7 @@ namespace CitasMedicas.UserRegistrationService.Api.Controllers
             return Ok(usuario); // Devolver datos del usuario si existe
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("rolUsuario/{rolUsuario}")]
         public async Task<ActionResult<UsuarioResponseDto>> BuscarUsuarioRol([FromRoute] int rolUsuario)
         {
@@ -385,7 +385,7 @@ namespace CitasMedicas.UserRegistrationService.Api.Controllers
             return Ok(usuarios); // Devolver datos del usuario si existe
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("usuarioPaciente")]
         public async Task<ActionResult<IEnumerable<UsuarioPacienteResponseDto>>> ObtenerUsuariosPacientes()
         {
@@ -426,7 +426,7 @@ namespace CitasMedicas.UserRegistrationService.Api.Controllers
             return Ok(usuariosPacientes);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("usuarioMedico")]
         public async Task<ActionResult<IEnumerable<UsuarioMedicoResponseDto>>> ObtenerUsuariosMedicos()
         {
@@ -470,7 +470,7 @@ namespace CitasMedicas.UserRegistrationService.Api.Controllers
             return Ok(usuariosConMedicos);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("usuarioRecepcionista")]
         public async Task<ActionResult<IEnumerable<UsuarioMedicoResponseDto>>> ObtenerUsuarioRecepcionistas()
         {
