@@ -5,8 +5,8 @@
         public int IdMedico { get; set; }
         public int IdUsuario { get; set; }
         public string CodigoMedico { get; set; }
-        public string Especialidad { get; set; }
-        public string NumeroColegiatura { get; set; }
-        public List<HorarioAtencionResponseDto> HorariosAtencion { get; set; }
+        public int IdEspecialidad { get; set; }
+        public int NumeroColegiatura { get; set; }
+        public string Observaciones { get; set; }
     }
 }

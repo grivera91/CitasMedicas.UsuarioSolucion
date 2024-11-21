@@ -430,8 +430,54 @@ namespace CitasMedicas.UserRegistrationService.Api.Controllers
         [HttpGet("usuarioMedico")]
         public async Task<ActionResult<IEnumerable<UsuarioMedicoResponseDto>>> ObtenerUsuariosMedicos()
         {
+            try
+            {
+                var usuariosConMedicos = await _context.Usuarios
+               .Where(u => u.RolUsuario == 2)  // Filtra por usuarios con rol de médico
+               .Select(u => new UsuarioMedicoResponseDto
+               {
+                   IdUsuario = u.IdUsuario,
+                   CodigoUsuario = u.CodigoUsuario,
+                   Nombre = u.Nombre,
+                   ApellidoPaterno = u.ApellidoPaterno,
+                   ApellidoMaterno = u.ApellidoMaterno,
+                   Dni = u.Dni,
+                   CorreoElectronico = u.CorreoElectronico,
+                   FechaNacimiento = u.FechaNacimiento,
+                   Genero = u.Genero,
+                   NumeroTelefonico = u.NumeroTelefonico,
+                   Direccion = u.Direccion,
+                   Medico = _context.Medicos
+                       .Where(m => m.IdUsuario == u.IdUsuario)
+                       .Select(m => new MedicoResponseDto
+                       {
+                           IdMedico = m.IdMedico,
+                           IdUsuario = m.IdUsuario,
+                           CodigoMedico = m.CodigoMedico,
+                           IdEspecialidad = m.IdEspecialidad,
+                           NumeroColegiatura = m.NumeroColegiatura,
+                           Observaciones = m.Observaciones
+                       })
+                       .FirstOrDefault()
+               })
+               .ToListAsync();
+
+                return Ok(usuariosConMedicos);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }           
+        }
+
+        //[Authorize]
+        [HttpGet("usuarioMedicoEspecialidad/{idEspecialidad}")]
+        public async Task<ActionResult<IEnumerable<UsuarioMedicoResponseDto>>> ObtenerUsuariosMedicosEspecialidad(int idEspecialidad)
+        {
+            // Filtra primero los usuarios que tienen la especialidad indicada
             var usuariosConMedicos = await _context.Usuarios
-                .Where(u => u.RolUsuario == 2)  // Filtra por usuarios con rol de médico
+                .Where(u => u.RolUsuario == 2 &&
+                            _context.Medicos.Any(m => m.IdUsuario == u.IdUsuario && m.IdEspecialidad == idEspecialidad)) // Filtro principal
                 .Select(u => new UsuarioMedicoResponseDto
                 {
                     IdUsuario = u.IdUsuario,
@@ -446,22 +492,15 @@ namespace CitasMedicas.UserRegistrationService.Api.Controllers
                     NumeroTelefonico = u.NumeroTelefonico,
                     Direccion = u.Direccion,
                     Medico = _context.Medicos
-                        .Where(m => m.IdUsuario == u.IdUsuario)
+                        .Where(m => m.IdUsuario == u.IdUsuario && m.IdEspecialidad == idEspecialidad) // Filtrar por especialidad
                         .Select(m => new MedicoResponseDto
                         {
                             IdMedico = m.IdMedico,
                             IdUsuario = m.IdUsuario,
                             CodigoMedico = m.CodigoMedico,
-                            Especialidad = m.Especialidad,
+                            IdEspecialidad = m.IdEspecialidad,
                             NumeroColegiatura = m.NumeroColegiatura,
-                            HorariosAtencion = m.HorariosAtencion.Select(h => new HorarioAtencionResponseDto
-                            {
-                                IdHorario = h.IdHorario,
-                                IdMedico = h.IdMedico,
-                                DiaSemana = h.DiaSemana,
-                                HoraInicio = h.HoraInicio,
-                                HoraFin = h.HoraFin
-                            }).ToList()
+                            Observaciones = m.Observaciones
                         })
                         .FirstOrDefault()
                 })
